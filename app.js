@@ -107,9 +107,9 @@ async function main() {
     await mongoose.connect(dbUrl);
 }
 
-// app.get("/",(req,res)=>{
-//     res.send("working");
-// });
+ app.get("/",(req,res)=>{
+    res.send("working");
+});
 // use "reviews" in place of "/listings/:id/reviews" (common path)
 // const listings = require("./routes/listing.js"); Parent route
 // const reviews = require("./routes/review.js");
