@@ -13,7 +13,7 @@ const MongoStore = require("connect-mongo");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
-
+const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -107,9 +107,10 @@ async function main() {
     await mongoose.connect(dbUrl);
 }
 
- app.get("/",(req,res)=>{
-    res.send("working");
-});
+ app.get("/",wrapAsync(async (req,res)=>{
+    const allListings = await Listening.find({});
+    res.render("listings/index.ejs",{allListings});
+}));
 // use "reviews" in place of "/listings/:id/reviews" (common path)
 // const listings = require("./routes/listing.js"); Parent route
 // const reviews = require("./routes/review.js");
